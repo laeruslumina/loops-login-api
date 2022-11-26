@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
@@ -22,24 +21,34 @@ public class ApiServiceImplementation implements ApiService{
     }
 
     @Override
-    public String createUser(@RequestBody User user) {
+    public String createUser(@RequestBody @NonNull User user) {
         userRepository.save(user);
         return "User created..";
     }
 
     @Override
-    public String updateUser(Integer id, User user) {
+    public String updateUser(@PathVariable @NonNull Integer id, @RequestBody @NonNull User user) {
         User userUpdate =userRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("User does not exist"));
-        userUpdate.setFullName(user.getFullName());
-        userUpdate.setEmail(user.getEmail());
-        userUpdate.setPassword(user.getPassword());
+
+        if (user.getEmail() != null){
+            userUpdate.setEmail(user.getEmail());
+        }
+        if (user.getFullName() != null){
+            userUpdate.setFullName(user.getFullName());
+        }
+
+        if (user.getPassword() != null){
+            userUpdate.setPassword(user.getPassword());
+        }
+
+
         userRepository.save(userUpdate);
-        return "Sukses...";
+        return "Updated...";
     }
 
     @Override
-    public String deleteUser(Integer id) {
+    public String deleteUser(@PathVariable @NonNull Integer id) {
         User userUpdate =userRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("User does not exist"));
         userRepository.delete(userUpdate);

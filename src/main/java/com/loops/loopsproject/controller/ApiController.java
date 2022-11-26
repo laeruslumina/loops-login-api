@@ -5,7 +5,6 @@ import com.loops.loopsproject.service.ApiService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -16,7 +15,7 @@ public class ApiController {
 
     @GetMapping("/show")
     public List<User> showUsers(){
-        return  apiService.getUsers();
+        return apiService.getUsers();
     }
 
     @PostMapping("/create")
@@ -24,13 +23,12 @@ public class ApiController {
         return apiService.createUser(user);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public String updateUser(@PathVariable @NonNull Integer id ,@RequestBody @NonNull User user){
         return  apiService.updateUser(id, user);
     }
 
-
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable @NonNull Integer id){
         return apiService.deleteUser(id);
     }
