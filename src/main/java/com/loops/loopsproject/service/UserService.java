@@ -4,7 +4,7 @@ import com.loops.loopsproject.models.entities.User;
 
 import java.util.List;
 
-public interface ApiService {
+public interface UserService {
     List<User> getUsers();
 
     String createUser(User user);

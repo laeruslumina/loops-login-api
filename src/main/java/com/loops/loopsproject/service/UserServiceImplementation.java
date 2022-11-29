@@ -1,18 +1,16 @@
 package com.loops.loopsproject.service;
 
 import com.loops.loopsproject.models.entities.User;
-import com.loops.loopsproject.repository.UserRepository;
-import lombok.NonNull;
+import com.loops.loopsproject.models.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ApiServiceImplementation implements ApiService{
+public class UserServiceImplementation implements UserService {
     private  final UserRepository userRepository;
 
     @Override
@@ -21,13 +19,13 @@ public class ApiServiceImplementation implements ApiService{
     }
 
     @Override
-    public String createUser(@RequestBody @NonNull User user) {
+    public String createUser(User user) {
         userRepository.save(user);
         return "User created..";
     }
 
     @Override
-    public String updateUser(@PathVariable @NonNull Integer id, @RequestBody @NonNull User user) {
+    public String updateUser(Integer id, User user) {
         User userUpdate =userRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("User does not exist"));
 
@@ -48,7 +46,7 @@ public class ApiServiceImplementation implements ApiService{
     }
 
     @Override
-    public String deleteUser(@PathVariable @NonNull Integer id) {
+    public String deleteUser(Integer id) {
         User userUpdate =userRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("User does not exist"));
         userRepository.delete(userUpdate);

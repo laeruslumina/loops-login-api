@@ -1,4 +1,4 @@
-package com.loops.loopsproject.repository;
+package com.loops.loopsproject.models.repository;
 
 import com.loops.loopsproject.models.entities.User;
 import org.springframework.data.repository.CrudRepository;
