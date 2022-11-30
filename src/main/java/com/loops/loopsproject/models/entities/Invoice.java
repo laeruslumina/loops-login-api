@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
 @Entity
@@ -19,14 +20,18 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+    @NotEmpty
     private String transactionReferenceType;
 
+    @NotEmpty
     private String productName;
 
+    @NotEmpty
     private BigDecimal basePrice;
 
     private BigDecimal discount;
 
     private BigDecimal totalPrice;
+
 
 }

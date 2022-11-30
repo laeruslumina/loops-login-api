@@ -16,6 +16,9 @@ public class InvoiceServiceImplementation implements InvoiceService{
     private final InvoiceRepository invoiceRepository;
 
     private BigDecimal getTotalPrice(Invoice invoice){
+        if (invoice.getBasePrice().intValue() > 10000 ){ //bikin auto generate validation
+            invoice.setDiscount(BigDecimal.valueOf(10000));
+        }
         return invoice.getBasePrice().subtract(invoice.getDiscount());
     }
 
