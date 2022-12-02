@@ -1,16 +1,20 @@
 package com.loops.loopsproject.service;
 
 import com.loops.loopsproject.models.entities.User;
+import com.loops.loopsproject.status.Status;
 
 import java.util.List;
 
 public interface UserService {
     List<User> getUsers();
 
-    String createUser(User user);
+    Status createUser(User user);
 
-    String updateUser(Integer id, User user);
+    Status updateUser(Integer id, User user);
 
-    String deleteUser(Integer id);
+    Status deleteUser(Integer id);
 
+    Status loginUser(User user);
+
+    Status logUserOut (User user);
 }

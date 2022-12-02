@@ -6,10 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -24,7 +22,7 @@ public class User {
 
     @NotEmpty
     @NotNull
-    @Size(min = 3, max = 30, message = "Name must be beetwen 3 and 30 words")
+    @Size(min = 3, max = 30, message = "Name must be between 3 and 30 words")
     private String fullName;
 
     @NotEmpty
@@ -39,4 +37,38 @@ public class User {
     @NotNull
     private String gender;
 
+    @NotBlank
+    private boolean loggedIn = false;
+
+    public boolean isLoggedIn(){
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn){
+        this.loggedIn = loggedIn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return loggedIn ==  email.equals(user.email) &&
+                password.equals(user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, password, loggedIn);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", loggedIn=" + loggedIn +
+                '}';
+    }
 }
