@@ -2,6 +2,7 @@ package com.loops.loopsproject.service;
 
 import com.loops.loopsproject.models.entities.User;
 import com.loops.loopsproject.status.Status;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface UserService {
 
     Status loginUser(User user);
 
-    Status logUserOut (User user);
+    Status logUserOut(User user);
 }

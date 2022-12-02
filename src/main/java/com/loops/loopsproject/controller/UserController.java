@@ -2,6 +2,7 @@ package com.loops.loopsproject.controller;
 
 import com.loops.loopsproject.models.entities.User;
 import com.loops.loopsproject.service.UserService;
+import com.loops.loopsproject.service.UserServiceImplementation;
 import com.loops.loopsproject.status.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Validated
+@RequestMapping("/api/")
 public class UserController {
 
     @Autowired
@@ -27,23 +28,23 @@ public class UserController {
 
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public Status createUser(@RequestBody User user){
+    public Status createUser(@RequestBody @Valid User user){
         return userService.createUser(user);
     }
 
     @PutMapping("/user/{id}")
-    public Status updateUser(@PathVariable Integer id , @RequestBody User user){
+    public Status updateUser(@PathVariable @Valid Integer id , @RequestBody @Valid User user){
         return  userService.updateUser(id, user);
     }
 
     @DeleteMapping("/user/{id}")
-    public Status deleteUser(@PathVariable  Integer id){
+    public Status deleteUser(@PathVariable @Valid Integer id){
         return userService.deleteUser(id);
     }
 
-    @PostMapping("/user")
+    @PostMapping("/user/login")
     public Status statusLogin(@RequestBody User user){return userService.loginUser(user);}
 
-    @PostMapping("/user")
+    @PostMapping("/user/logout")
     public Status statusLogout(@RequestBody User user){return userService.logUserOut(user);}
 }

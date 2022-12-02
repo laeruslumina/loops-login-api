@@ -1,16 +1,16 @@
 package com.loops.loopsproject.models.entities;
 
 import lombok.*;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.ColumnDefault;
+
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.Objects;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Valid
@@ -37,7 +37,7 @@ public class User {
     @NotNull
     private String gender;
 
-    @NotBlank
+    @Column(columnDefinition = "tinyint(1) default 0")
     private boolean loggedIn = false;
 
     public boolean isLoggedIn(){
@@ -53,8 +53,8 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return loggedIn ==  email.equals(user.email) &&
-                password.equals(user.password);
+        return loggedIn ==  this.email.equals(user.email) &&
+                this.password.equals(user.password);
     }
 
     @Override

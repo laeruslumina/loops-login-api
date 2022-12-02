@@ -4,6 +4,7 @@ import com.loops.loopsproject.models.entities.User;
 import com.loops.loopsproject.models.repository.UserRepository;
 import com.loops.loopsproject.status.Status;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,7 +13,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImplementation implements UserService {
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<User> getUsers() {
@@ -22,9 +24,9 @@ public class UserServiceImplementation implements UserService {
     @Override
     public Status createUser(User user) {
         System.out.println("New User : " + user.toString());
-        for (User priginal:getUsers()) {
-            System.out.println("Registered user : " + user);
-            if (priginal.equals(user)){
+        for (User original:getUsers()) {
+            System.out.println("Registered user : " + user.toString());
+            if (original.equals(user)){
                 System.out.println("User already exist!");
                 return Status.USER_ALREADY_EXISTS;
             }
@@ -70,7 +72,6 @@ public class UserServiceImplementation implements UserService {
                 return Status.SUCCESS;
             }
         }
-
         return Status.FAILURE;
     }
 

@@ -3,35 +3,34 @@ package com.loops.loopsproject.controller;
 import com.loops.loopsproject.models.entities.Invoice;
 import com.loops.loopsproject.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/invoice")
 @RequiredArgsConstructor
 public class InvoiceController {
+    @Autowired
     private final InvoiceService invoiceService;
-    @PostMapping
+    @PostMapping("/invoice")
     @ResponseStatus(HttpStatus.CREATED)
     public Invoice createInvoice(@RequestBody Invoice invoice){
         return invoiceService.create(invoice);
     }
 
-    @GetMapping
+    @GetMapping("/invoice")
     public List<Invoice> findAllInvoice(){return invoiceService.findAll();}
 
-    @PutMapping
+    @PutMapping("/invoice")
     public Invoice updateInvoice (@PathVariable Long id, @RequestBody Invoice invoice){
         return invoiceService.update(id, invoice);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/invoice")
     public String deleteInvoice(@PathVariable Long id){
         invoiceService.delete(id);
         return "Invoice Deleted....";
     }
-
-
 }
